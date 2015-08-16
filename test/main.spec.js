@@ -19,9 +19,27 @@ describe('The Address book app', function () {
 
      //we know the contactService made a http request to the server, lets test this
      it('should call the backend', function () {
-        $httpBackend.expectGET('http:localhost:9001/contacts')
+        $httpBackend.expectGET('http://localhost:9001/contacts')
             .respond(200, []);
         $httpBackend.flush(); // by this I can assert our application not making any unexpected requests.
      });
 	})
+
+  describe('the contact controller', function () {
+    beforeEach(function () {
+      module('AddressBook');
+      inject(function($injector, $rootScope) { // inject() is used to inject arguments of all given functions
+        //As you TEST the 'controller', you create a special version of scope that you pass to that controller
+        $scope = $rootScope.$new();
+        contactService = $injector.get('contactService'); //now I have access to contactService
+        $httpBackend = $injector.get('$httpBackend'); //now I have access to httpBackend service
+        $controller = $injector.get('$controller');
+      })
+    })
+    it('should store an array of contacts in scope', function () {
+      //I will invoke the controller with $controller and it takes an object with arguments
+      $controller('ContactController', {$scope: $scope, contactService: contactService });
+      assert.isArray($scope.contacts);
+    })
+  })
 })
