@@ -42,4 +42,28 @@ describe('The Address book app', function () {
       assert.isArray($scope.contacts);
     })
   })
+
+  describe('the proper filter', function () {
+    beforeEach(function () {
+      module('AddressBook');
+      inject(function($injector) {
+        proper = $injector.get('$filter')('proper'); //now I have a instance of the filter
+      })
+    })
+
+    it('should proper case a string', function () {
+      expect(proper('shafaiatul islam')).to.equal('Shafaiatul Islam');
+    })
+
+    it('should take a number and return that as a string', function () {
+      expect(proper(42)).to.equal('42');
+    })
+
+    it('should throw an error on an incompatible type', function () {
+      //for error (undefined or null), I have to throw it in a function closure
+      assert.throw(function () {
+        proper(undefined);
+      });
+    })
+  })
 })
