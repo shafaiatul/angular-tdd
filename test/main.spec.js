@@ -66,4 +66,25 @@ describe('The Address book app', function () {
       });
     })
   })
+
+  describe('avatar', function () {
+    beforeEach(function () {
+      module('AddressBook');
+    })
+
+    it('should display the capitalized first letter of a name', function () {
+      //To test the directive I will need the $rootScope and $compile
+      inject(function ($rootScope, $compile) {
+        //$compile is used to link the scope and template together
+        $rootScope.contact = {name: 'joe aron'};
+        //by using $compile function we can virtually create directive
+        var element = $compile('<avatar name=contact.name/>')($rootScope);
+        //now everything is setup, I need to digest
+        $rootScope.$digest();
+        //now I can grab the actual compiled text from the directive
+        var dirText = element.text();
+        expect(dirText).to.equal('J');
+      })
+    })
+  })
 })
