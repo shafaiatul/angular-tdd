@@ -24,7 +24,7 @@ gulp.task('serve', ['server'], function () { //make the server task dependency o
 			routes: {
 				'/bower_components': 'bower_components'
 			}
-		}		
+		}
 	})
 	// Watch for change in any file  (Everytime I update the files browserSync will restart.)
 	chokidar.watch(['app/**/*.*'])
@@ -39,21 +39,39 @@ gulp.task('test-browser', function () {
 		configFile: __dirname +'/karma.conf.js',
 		singleRun: true, //I want it to run once
 		//pass a array of reporters
-		reporters: ['mocha']
-	})
+		reporters: ['mocha','coverage']
+	},function () {
+    done();
+  })
+});
+
+//Serve Coverage
+gulp.task('serve-coverage',['test-browser'], function () {
+  browserSync.init ({
+    notify: false,
+    port: 7777,
+    server: {
+      baseDir: ['test/coverage'],
+      routes: {
+        '/bower_components': 'bower_components'
+      }
+    }
+  })
+  chokidar.watch(['app/**/*.*'])
+    .on('change', browserSync.reload);
 });
 
 //Serving the test
 gulp.task('serve-test', function () {
 	browserSync.init ({
-		notify: false, 
+		notify: false,
 		port: 8081,
 		server: {
-			baseDir: ['test', 'app'], 
+			baseDir: ['test', 'app'],
 			routes: {
 				'/bower_components': 'bower_components'
 			}
-		}		
+		}
 	})
 	chokidar.watch(['app/**/*.*'])
 		.on('change', browserSync.reload);
