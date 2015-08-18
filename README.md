@@ -4,5 +4,5 @@ Test driven development approach for my angular app
 Mocha Spec Runner
 =================
 
-![Alt text](https://github.com/shafaiatul/angular-tdd/tree/master/screenshots/mocha-spec-runner.png?raw=true "Optional Title")
+![Alt text](https://github.com/shafaiatul/angular-tdd/blob/master/screenshots/mocha-spec-runner.png?raw=true "Optional Title")
 
