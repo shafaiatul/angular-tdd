@@ -51,10 +51,7 @@ gulp.task('serve-coverage',['test-browser'], function () {
     notify: false,
     port: 7777,
     server: {
-      baseDir: ['test/coverage'],
-      routes: {
-        '/bower_components': 'bower_components'
-      }
+      baseDir: ['test/coverage']
     }
   })
   chokidar.watch(['app/**/*.*'])
